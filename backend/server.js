@@ -3,7 +3,9 @@ const express = require('express');
 const cookieParser = require('cookie-parser');
 const mongoose = require('mongoose');
 const authRoutes = require('./router/prorouter');
-
+const bookrouter=require('./router/bookrouter')
+const cateogryrouter=require('./router/categoryrouter')
+const reivewrouter=require('./router/reviewrouter')
 const cors=require('cors')
 const app = express()
 
@@ -19,6 +21,10 @@ app.use(cors({
 }));
 
 app.use('/api/auth', authRoutes);
+app.use('/api/books',bookrouter)
+app.use('/api/Categpry', cateogryrouter);
+app.use('/api/review',reivewrouter)
+
 
 
 
