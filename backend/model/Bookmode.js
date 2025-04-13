@@ -8,7 +8,6 @@ const bookSchema = new mongoose.Schema({
   price: { type: Number, required: true },
   coverImage: String,
   rating: { type: Number, default: 0 },
-  numReviews: { type: Number, default: 0 },
   featured: { type: Boolean, default: false },
 }, { timestamps: true });
 
