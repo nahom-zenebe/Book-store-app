@@ -1,4 +1,5 @@
 class Bookentities {
+  final String Id;
   final String title;
   final String author;
   final String category;
@@ -9,7 +10,9 @@ class Bookentities {
   final bool featured;
 
   Bookentities(
-      {required this.title,
+
+      {required this.Id
+        ,required this.title,
       required this.author,
       required this.category,
       required this.coverImage,
