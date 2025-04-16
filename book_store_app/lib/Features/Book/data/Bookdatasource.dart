@@ -85,22 +85,21 @@ class Bookdatasource {
 
   Future<Bookentities?> getbyIdBook(String Id) async {
     try {
-      final response =
-          await http.get(Uri.parse("$baseUrl/getallbook/$Id"));
+      final response = await http.get(Uri.parse("$baseUrl/getallbook/$Id"));
 
       if (response.statusCode == 200) {
-       
+        print('newkdnekwfnmew');
+        return null;
       } else {
         throw Exception("Error in get all Books");
       }
     } catch (error) {
       print(error);
-    
     }
   }
 
-  Future<Bookentities?> updateBook(
-    String bookId, {
+  /*Future<BookEntity> updateBook(
+  {
     required String title,
     required String author,
     required String category,
@@ -130,14 +129,16 @@ class Bookdatasource {
         }),
       );
 
-      if (response.statusCode == 204) {
-        print("Book updated successfully");
+      if (response.statusCode == 200 || response.statusCode == 201) {
+        final data = jsonDecode(response.body);
+        return BookModel.fromjson(data).toString();
       } else {
         print("Failed to update book. Status code: ${response.statusCode}");
         throw Exception("Failed to update book");
       }
     } catch (error) {
       print("Error updating book: $error");
+      rethrow;
     }
-  }
+  }*/
 }

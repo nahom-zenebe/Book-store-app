@@ -11,14 +11,14 @@ abstract class Bookrepository {
   final double rating,
   final bool featured,);
   Future<List<Bookentities>> getallBook();
-  Future<Bookentities> getbyIdBook(String Id);
+  /*Future<Bookentities> getbyIdBook(String Id);*/
   Future<void> DeleteBooks(String Id);
-  Future<Bookentities> UpdateBook(String Id,final String title,
+ /* Future<Bookentities> UpdateBook(final String title,
   final String author,
   final String category,
   final String description,
   final double price,
   final String coverImage,
   final double rating,
-  final bool featured,);
+  final bool featured,);*/
 }

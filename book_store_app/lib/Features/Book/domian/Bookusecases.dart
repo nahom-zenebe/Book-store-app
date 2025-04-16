@@ -22,15 +22,15 @@ class Bookusecases {
     return await bookrepository.getallBook();
   }
 
-Future<Bookentities> getBookbyId(final String Id) async {
+/*Future<Bookentities> getBookbyId(final String Id) async {
     return await bookrepository.getbyIdBook( Id);
-  }
+  }*/
 
   Future<void> DeleteBook(final String Id) async {
     return await bookrepository.DeleteBooks( Id);
   }
 
-  Future<Bookentities> UpdateBook(final String Id,final String title,
+ /* Future<Bookentities> UpdateBook(final String Id,final String title,
   final String author,
   final String category,
   final String description,
@@ -38,6 +38,6 @@ Future<Bookentities> getBookbyId(final String Id) async {
   final String coverImage,
   final double rating,
   final bool featured,) async {
-    return await bookrepository.UpdateBook( Id,title,author,category,description,price,coverImage,rating,featured,);
-  }
+    return await bookrepository.UpdateBook(title,author,category,description,price,coverImage,rating,featured,);
+  }*/
 }

@@ -28,16 +28,13 @@ class Bookrepostoryimp implements Bookrepository {
   }
 
   @override
-  Future<Bookentities> getbyIdBook(String Id) async{
-     return await bookdatasource.getallBook(Id);
+  Future<void> DeleteBooks(String Id) async {
+    return await bookdatasource.deleteBooks(Id);
   }
 
-  @override
-  Future<void> DeleteBooks(String Id) {}
-
-  @override
+  /*@override
   Future<Bookentities> UpdateBook(
-    String Id,
+    
     final String title,
     final String author,
     final String category,
@@ -46,5 +43,16 @@ class Bookrepostoryimp implements Bookrepository {
     final String coverImage,
     final double rating,
     final bool featured,
-  ) {}
+  ) async {
+    return await bookdatasource.updateBook(
+ 
+        title: title,
+        author: author,
+        category: category,
+        description: description,
+        price: price,
+        coverImage: coverImage,
+        rating: rating,
+        featured: featured);
+  }*/
 }
