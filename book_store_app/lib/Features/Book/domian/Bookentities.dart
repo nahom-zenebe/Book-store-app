@@ -1,5 +1,5 @@
 class Bookentities {
-  final String Id;
+  final String id;
   final String title;
   final String author;
   final String category;
@@ -11,7 +11,7 @@ class Bookentities {
 
   Bookentities(
 
-      {required this.Id
+      {required this.id
         ,required this.title,
       required this.author,
       required this.category,

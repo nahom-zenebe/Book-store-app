@@ -1,4 +1,5 @@
 import 'package:book_store_app/Features/Book/presentation/Bookbloc.dart';
+import 'package:book_store_app/Features/Book/presentation/Bookevent.dart';
 import 'package:book_store_app/Features/Book/presentation/Bookstate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -8,9 +9,19 @@ class Bookpages extends StatefulWidget {
 
   @override
   State<Bookpages> createState() => _BookpagesState();
+  
 }
 
 class _BookpagesState extends State<Bookpages> {
+
+  @override
+void initState() {
+  super.initState();
+  BlocProvider.of<BookBloc>(context).add(GetAllBooks());
+}
+
+
+
   @override
   Widget build(BuildContext context) {
     final bookBloc = BlocProvider.of<BookBloc>(context);
@@ -48,13 +59,13 @@ class _BookpagesState extends State<Bookpages> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            // Book cover image with rounded corners
-                            Image.asset(
+                            
+                          /*  Image.network(
                               book.coverImage,
                               width: double.infinity,
                               height: 180,
                               fit: BoxFit.cover,
-                            ),
+                            ),*/
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: Column(
