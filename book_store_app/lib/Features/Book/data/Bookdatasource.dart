@@ -4,7 +4,7 @@ import 'package:book_store_app/Features/Book/data/Bookmodel.dart';
 import 'package:book_store_app/Features/Book/domian/Bookentities.dart';
 import 'package:http/http.dart' as http;
 
-const String baseUrl = "http://localhost:3002/api";
+const String baseUrl = "http://localhost:5000/api";
 
 class Bookdatasource {
   Future<void> createBook(
@@ -19,7 +19,7 @@ class Bookdatasource {
   ) async {
     try {
       final response = await http.post(
-        Uri.parse("$baseUrl/createbook"),
+        Uri.parse("$baseUrl/books/createrouter"),
         headers: {
           'Content-Type': 'application/json',
         },
