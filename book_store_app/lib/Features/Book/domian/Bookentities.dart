@@ -7,7 +7,7 @@ class Bookentities {
   final double price;
   final String coverImage;
   final double rating;
-  final bool featured;
+  bool featured;
 
   Bookentities(
 

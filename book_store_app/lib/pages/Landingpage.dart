@@ -1,4 +1,5 @@
 import 'package:book_store_app/Features/Book/presentation/pages/Bookpages.dart';
+import 'package:book_store_app/pages/Homepage.dart';
 import 'package:book_store_app/pages/signuppage.dart';
 import 'package:flutter/material.dart';
 
@@ -71,7 +72,7 @@ class Landingpage extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Bookpages()));
+                      MaterialPageRoute(builder: (context) => Homepage()));
                 },
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size(400, 60),

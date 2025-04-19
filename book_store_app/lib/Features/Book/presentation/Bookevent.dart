@@ -45,3 +45,4 @@ class DeleteBook extends BookEvent {
   @override
   List<Object?> get props => [id];
 }
+

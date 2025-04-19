@@ -9,7 +9,7 @@ class BookModel extends Bookentities {
   final double price;
   final String coverImage;
   final double rating;
-  final bool featured;
+   bool featured;
 
   BookModel({
     required this.id,
