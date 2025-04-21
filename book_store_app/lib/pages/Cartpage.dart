@@ -3,6 +3,8 @@ import 'package:book_store_app/Features/Book/presentation/Cartevent.dart';
 import 'package:book_store_app/Features/Book/presentation/Cartstate.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 class Cartpage extends StatefulWidget {
   const Cartpage({super.key});
@@ -32,6 +34,23 @@ class _CartpageState extends State<Cartpage> {
                   trailing:ElevatedButton(
                 onPressed: () {
                   context.read<Cartbloc>().add(Removefromcart(books: books));
+
+
+ Fluttertoast.showToast(
+                                                  msg: "${ books.title } successfully remove to Cart",
+                                                  toastLength:
+                                                      Toast.LENGTH_SHORT,
+                                                  gravity: ToastGravity.CENTER,
+                                                  timeInSecForIosWeb: 1,
+                                                  backgroundColor: const Color.fromARGB(255, 92, 214, 17),
+                                                  textColor: Colors.white,
+                                                  fontSize: 16.0);
+
+
+
+
+
+                  
                 },
                 style: ElevatedButton.styleFrom(
                   minimumSize: Size(120, 50),
