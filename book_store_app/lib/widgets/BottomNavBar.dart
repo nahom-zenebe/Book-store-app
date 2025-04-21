@@ -1,4 +1,5 @@
 import 'package:book_store_app/Features/Book/presentation/pages/Bookpages.dart';
+import 'package:book_store_app/pages/Cartpage.dart';
 import 'package:flutter/material.dart';
 
 class Bottomnavbar extends StatefulWidget {
@@ -14,7 +15,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
   final List<Widget> _pages = [
     Bookpages(),
     Center(child: Text("Search")),
-    Center(child: Text("Notifications")),
+    Cartpage(),
     Center(child: Text("Profile")),
   ];
 
@@ -57,9 +58,10 @@ class _BottomnavbarState extends State<Bottomnavbar> {
             ),
             SizedBox(width: 40),
             IconButton(
-              icon: Icon(Icons.notifications),
+              icon: Icon(Icons.shopping_cart_rounded),
               color: _selectedIndex == 2 ? const Color.fromARGB(255, 52, 195, 23) : Colors.grey,
               onPressed: () {
+                
                 setState(() {
                   _selectedIndex = 2;
                 });

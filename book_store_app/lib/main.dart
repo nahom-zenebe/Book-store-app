@@ -1,6 +1,7 @@
 import 'package:book_store_app/Features/Book/data/Bookdatasource.dart';
 import 'package:book_store_app/Features/Book/data/BookrepostoryImp.dart';
 import 'package:book_store_app/Features/Book/presentation/Bookbloc.dart';
+import 'package:book_store_app/Features/Book/presentation/Cartbloc.dart';
 import 'package:book_store_app/pages/Landingpage.dart';
 import 'package:flutter/material.dart';
 import 'package:bloc/bloc.dart';
@@ -18,7 +19,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
         providers: [
-          BlocProvider(create: (context)=>BookBloc(Bookrepostoryimp(bookdatasource:Bookdatasource() )))
+          BlocProvider(create: (context)=>BookBloc(Bookrepostoryimp(bookdatasource:Bookdatasource() ))),
+          BlocProvider(create: (context)=> Cartbloc())
 
         ],
         child: MaterialApp(

@@ -1,48 +1,29 @@
-import 'package:equatable/equatable.dart';
 import 'package:book_store_app/Features/Book/domian/Bookentities.dart';
+import 'package:equatable/equatable.dart';
 
-abstract class CartEvent extends Equatable {
-  const CartEvent();
-
+abstract class Cartevent extends Equatable {
+  const Cartevent();
   @override
   List<Object?> get props => [];
 }
 
-class AddToCart extends CartEvent {
-  final String title;
-  final String author;
-  final String category;
-  final String description;
-  final double price;
-  final String coverImage;
-  final double rating;
-  final bool featured;
+class Addtocart extends Cartevent {
+  final Bookentities books;
 
-  const AddToCart ({
-    required this.title,
-    required this.author,
-    required this.category,
-    required this.description,
-    required this.price,
-    required this.coverImage,
-    required this.rating,
-    required this.featured,
-  });
+  const Addtocart({required this.books});
 
   @override
-  List<Object?> get props =>
-      [title, author, category, description, price, coverImage, rating, featured];
+  List<Object?> get props => [
+       books
+      ];
 }
 
-
-class RemoveFromCart extends CartEvent {
-  final String id;
-
-  const RemoveFromCart({required this.id});
+class Removefromcart extends Cartevent {
+  final Bookentities books;
+  const Removefromcart({required this.books});
 
   @override
-  List<Object?> get props => [id];
+  List<Object?> get props => [books];
 }
-class ClearCart extends CartEvent {
-  const ClearCart();
-}
+
+class ClearCart extends Cartevent {}
