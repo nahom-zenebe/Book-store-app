@@ -23,7 +23,7 @@ class _CartpageState extends State<Cartpage> {
       ),
       
       body: BlocBuilder<Cartbloc, Cartstate>(builder: (context, state) {
-        return Column(
+        return state.Books.length==0 ? Center(child: Text("No Book In the Cart"),)  : Column(
 
           children: [
                      SizedBox(height: 30,),

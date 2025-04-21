@@ -3,6 +3,7 @@ import 'package:book_store_app/Features/Book/presentation/Bookevent.dart';
 import 'package:book_store_app/Features/Book/presentation/Bookstate.dart';
 import 'package:book_store_app/Features/Book/presentation/Cartbloc.dart';
 import 'package:book_store_app/Features/Book/presentation/Cartevent.dart';
+import 'package:book_store_app/pages/DetailBooks.dart';
 import 'package:book_store_app/widgets/BottomNavBar.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -165,7 +166,7 @@ class _BookpagesState extends State<Bookpages> {
                                                   .read<Cartbloc>()
                                                   .add(Addtocart(books: book));
 
-                                              Fluttertoast.showToast(
+                                              /*Fluttertoast.showToast(
                                                   msg: "${ book.title } successfully Add to Cart",
                                                   toastLength:
                                                       Toast.LENGTH_SHORT,
@@ -173,7 +174,7 @@ class _BookpagesState extends State<Bookpages> {
                                                   timeInSecForIosWeb: 1,
                                                   backgroundColor: const Color.fromARGB(255, 92, 214, 17),
                                                   textColor: Colors.white,
-                                                  fontSize: 16.0);
+                                                  fontSize: 16.0);*/
                                             },
                                             style: ElevatedButton.styleFrom(
                                               backgroundColor:
@@ -194,8 +195,8 @@ class _BookpagesState extends State<Bookpages> {
                                         SizedBox(width: 8),
                                         ElevatedButton(
                                           onPressed: () {
-                                            // Navigate to book details
-                                            // Navigator.push(context, MaterialPageRoute(builder: (_) => BookDetailPage(book: book)));
+                                           
+                                             Navigator.push(context, MaterialPageRoute(builder: (_) => Detailbooks(books: book,)));
                                           },
                                           style: ElevatedButton.styleFrom(
                                             backgroundColor:
