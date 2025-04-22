@@ -23,69 +23,71 @@ class _CartpageState extends State<Cartpage> {
       ),
       
       body: BlocBuilder<Cartbloc, Cartstate>(builder: (context, state) {
-        return state.Books.length==0 ? Center(child: Text("No Book In the Cart"),)  : Column(
-
-          children: [
-                     SizedBox(height: 30,),
-            ...state.Books.map((books) => ListTile(
-                  leading: Image.asset("assets/books.jpg"),
-                  title: Text(books.title),
-                  subtitle: Text(books.description),
-                  trailing:ElevatedButton(
-                onPressed: () {
-                  context.read<Cartbloc>().add(Removefromcart(books: books));
-
-
- Fluttertoast.showToast(
-                                                  msg: "${ books.title } successfully remove to Cart",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.CENTER,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor: const Color.fromARGB(255, 92, 214, 17),
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);
-
-
-
-
-
-                  
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(120, 50),
-                  backgroundColor: Colors.red[700],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+        return state.Books.length==0 ? Center(child: Text("No Book In the Cart"),)  : SingleChildScrollView(
+          child: Column(
+          
+            children: [
+                       SizedBox(height: 30,),
+              ...state.Books.map((books) => ListTile(
+                    leading: Image.asset("assets/books.jpg"),
+                    title: Text(books.title),
+                    subtitle: Text(books.description),
+                    trailing:ElevatedButton(
+                  onPressed: () {
+                    context.read<Cartbloc>().add(Removefromcart(books: books));
+          
+          
+           Fluttertoast.showToast(
+                                                    msg: "${ books.title } successfully remove to Cart",
+                                                    toastLength:
+                                                        Toast.LENGTH_SHORT,
+                                                    gravity: ToastGravity.CENTER,
+                                                    timeInSecForIosWeb: 1,
+                                                    backgroundColor: const Color.fromARGB(255, 92, 214, 17),
+                                                    textColor: Colors.white,
+                                                    fontSize: 16.0);
+          
+          
+          
+          
+          
+                    
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(120, 50),
+                    backgroundColor: Colors.red[700],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                ),
-                child: Text(
-                  "Remove",
-                  style: TextStyle(color: Colors.white),
-                )),
-                )),
-            SizedBox(height: 10,),
-            Divider(height: 3,),
-             SizedBox(height: 10,),
-            Text('Total: \$${state.totalPrice.toStringAsFixed(2)}'),
-              SizedBox(height: 40,),
-
-              ElevatedButton(
-                onPressed: () {
-                  
-                },
-                style: ElevatedButton.styleFrom(
-                  minimumSize: Size(400, 50),
-                  backgroundColor: const Color.fromARGB(255, 8, 172, 16),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
+                  child: Text(
+                    "Remove",
+                    style: TextStyle(color: Colors.white),
+                  )),
+                  )),
+              SizedBox(height: 10,),
+              Divider(height: 3,),
+               SizedBox(height: 10,),
+              Text('Total: \$${state.totalPrice.toStringAsFixed(2)}'),
+                SizedBox(height: 40,),
+          
+                ElevatedButton(
+                  onPressed: () {
+                    
+                  },
+                  style: ElevatedButton.styleFrom(
+                    minimumSize: Size(400, 50),
+                    backgroundColor: const Color.fromARGB(255, 8, 172, 16),
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
                   ),
-                ),
-                child: Text(
-                  "Checkout",
-                  style: TextStyle(color: Colors.white),
-                )),
-          ],
+                  child: Text(
+                    "Checkout",
+                    style: TextStyle(color: Colors.white),
+                  )),
+            ],
+          ),
         );
       }),
     );

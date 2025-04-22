@@ -13,12 +13,6 @@ class Homepage extends StatefulWidget {
 }
 
 class _HomepageState extends State<Homepage> {
-  @override
-  void initState() {
-    super.initState();
-    
-    BlocProvider.of<BookBloc>(context).add(GetAllBooks());
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -26,6 +20,48 @@ class _HomepageState extends State<Homepage> {
       appBar: AppBar(
         title: Text('Book Store'),
         backgroundColor: Colors.blueAccent,
+      ),
+      drawer: Drawer(
+       child: ListView(
+        children: [
+        CircleAvatar(child: Image.asset("assets/books.jpg"),),
+        UserAccountsDrawerHeader(accountName: Text("Semera Ababa"), accountEmail:Text("Semeraababa@gmail.com")),
+        SizedBox(height: 40,),
+        ListTile(
+          leading: Icon(Icons.home),
+          onTap: (){},
+          title: Text("Home"),
+        ),
+        SizedBox(height: 20,),
+        ListTile(
+          leading: Icon(Icons.add),
+          onTap: (){},
+          title: Text("create Book"),
+        ),
+        SizedBox(height: 20,),
+        ListTile(
+          leading: Icon(Icons.shopping_cart_outlined),
+          onTap: (){},
+          title: Text("Cart"),
+        ),SizedBox(height: 20,),
+        ListTile(
+          leading: Icon(Icons.save),
+          onTap: (){},
+          title: Text("Saved"),
+        ),
+
+        SizedBox(height: 80,),
+        Divider(height: 2,color: Colors.black,),
+        ListTile(
+          leading: Icon(Icons.save),
+          onTap: (){},
+          title: Text("Saved"),
+        )
+        
+        ],
+
+
+       ),
       ),
       body: SafeArea(
         child: Column(
@@ -48,7 +84,7 @@ class _HomepageState extends State<Homepage> {
               ),
             ),
             SizedBox(height: 20),
-            Expanded(
+            Flexible(
               child: Bookpages(), // This will display the books grid
             ),
           ],
