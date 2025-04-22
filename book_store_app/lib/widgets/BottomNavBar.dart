@@ -1,5 +1,6 @@
 import 'package:book_store_app/Features/Book/presentation/pages/Bookpages.dart';
 import 'package:book_store_app/pages/Cartpage.dart';
+import 'package:book_store_app/pages/CreateBook.dart';
 import 'package:flutter/material.dart';
 
 class Bottomnavbar extends StatefulWidget {
@@ -22,11 +23,12 @@ class _BottomnavbarState extends State<Bottomnavbar> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _pages[_selectedIndex], 
+      body: _pages[_selectedIndex],
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Handle adding a book or another action, but don't navigate to Bookpages
+          Navigator.push(
+              context, MaterialPageRoute(builder: (context) => Createbook()));
         },
         backgroundColor: const Color.fromARGB(255, 56, 189, 29),
         child: Icon(Icons.add),
@@ -40,7 +42,9 @@ class _BottomnavbarState extends State<Bottomnavbar> {
           children: [
             IconButton(
               icon: Icon(Icons.home),
-              color: _selectedIndex == 0 ? const Color.fromARGB(255, 52, 195, 23) : Colors.grey,
+              color: _selectedIndex == 0
+                  ? const Color.fromARGB(255, 52, 195, 23)
+                  : Colors.grey,
               onPressed: () {
                 setState(() {
                   _selectedIndex = 0;
@@ -49,7 +53,9 @@ class _BottomnavbarState extends State<Bottomnavbar> {
             ),
             IconButton(
               icon: Icon(Icons.search),
-              color: _selectedIndex == 1 ? const Color.fromARGB(255, 52, 195, 23) : Colors.grey,
+              color: _selectedIndex == 1
+                  ? const Color.fromARGB(255, 52, 195, 23)
+                  : Colors.grey,
               onPressed: () {
                 setState(() {
                   _selectedIndex = 1;
@@ -59,9 +65,10 @@ class _BottomnavbarState extends State<Bottomnavbar> {
             SizedBox(width: 40),
             IconButton(
               icon: Icon(Icons.shopping_cart_rounded),
-              color: _selectedIndex == 2 ? const Color.fromARGB(255, 52, 195, 23) : Colors.grey,
+              color: _selectedIndex == 2
+                  ? const Color.fromARGB(255, 52, 195, 23)
+                  : Colors.grey,
               onPressed: () {
-                
                 setState(() {
                   _selectedIndex = 2;
                 });
@@ -69,7 +76,9 @@ class _BottomnavbarState extends State<Bottomnavbar> {
             ),
             IconButton(
               icon: Icon(Icons.person),
-              color: _selectedIndex == 3 ? const Color.fromARGB(255, 52, 195, 23) : Colors.grey,
+              color: _selectedIndex == 3
+                  ? const Color.fromARGB(255, 52, 195, 23)
+                  : Colors.grey,
               onPressed: () {
                 setState(() {
                   _selectedIndex = 3;
