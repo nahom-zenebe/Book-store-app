@@ -8,9 +8,10 @@ abstract class Categoryrepository {
    Future<List<Categoryentities>> getallCategroy();
   Future<void> deleteCategroy(final String id);
   Future<Categoryentities> EditCategroy(
+    final String id,
    final String name,
   final String description ,
-  final String id
+
      );
 
 }

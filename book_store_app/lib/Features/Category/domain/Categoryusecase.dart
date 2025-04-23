@@ -18,7 +18,7 @@ class Categoryusecase {
     return await categoryrepository.deleteCategroy(id);
   }
 
-   Future<Categoryentities> EditCategory(  final String name, final String description,final String id) async {
-    return await categoryrepository.EditCategroy(name, description,id);
+   Future<Categoryentities> EditCategory( final String id, final String name, final String description) async {
+    return await categoryrepository.EditCategroy(id,name, description);
   }
 }

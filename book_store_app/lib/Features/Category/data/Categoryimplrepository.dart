@@ -16,16 +16,18 @@ class Categoryimplrepository implements Categoryrepository {
   }
 
   @override
-  Future<List<Categoryentities>> getallCategroy()async {
-        return await categorydatasource.getallCategory();
+  Future<List<Categoryentities>> getallCategroy() async {
+    return await categorydatasource.getallCategory();
   }
+
   @override
-  Future<void> deleteCategroy(final String id)async {
-        return await categorydatasource.deleteCategory(id);
+  Future<void> deleteCategroy(final String id) async {
+    return await categorydatasource.deleteCategory(id);
   }
+
   @override
   Future<Categoryentities> EditCategroy(
-      final String name, final String description, final String id) {
-            return await categorydatasource.createCategory(name, description);
-      }
+      final String id, final String name, final String description) async {
+    return await categorydatasource.editCategory(id, name, description);
+  }
 }
