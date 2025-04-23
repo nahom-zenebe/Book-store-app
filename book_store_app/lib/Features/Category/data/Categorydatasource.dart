@@ -39,4 +39,26 @@ class Categorydatasource {
       return [];
     }
   }
+
+    Future<void> deleteCategory(String id) async {
+    try {
+      final response = await http.get(
+        Uri.parse("$baseUrl/deleteCategory/$id"),
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      );
+
+      if (response.statusCode == 204) {
+        print("Delete sucessfully");
+      } else {
+        throw Exception("Error in get all Books");
+      }
+    } catch (error) {
+      print(error);
+    }
+  }
+
+
+  
 }
