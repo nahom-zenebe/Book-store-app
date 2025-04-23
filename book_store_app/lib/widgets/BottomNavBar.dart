@@ -1,6 +1,7 @@
 import 'package:book_store_app/Features/Book/presentation/pages/Bookpages.dart';
 import 'package:book_store_app/pages/Cartpage.dart';
 import 'package:book_store_app/pages/CreateBook.dart';
+import 'package:book_store_app/pages/CreateCategorypage.dart';
 import 'package:flutter/material.dart';
 
 class Bottomnavbar extends StatefulWidget {
@@ -17,7 +18,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
     Bookpages(),
     Center(child: Text("Search")),
     Cartpage(),
-    Center(child: Text("Profile")),
+   Createcategorypage(),
   ];
 
   @override

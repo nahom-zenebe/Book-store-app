@@ -3,12 +3,12 @@ import 'package:book_store_app/Features/Category/data/Categorymodel.dart';
 import 'package:book_store_app/Features/Category/domain/Categoryentities.dart';
 import 'package:http/http.dart' as http;
 
-const String baseUrl = "http://localhost:5000/api";
+const String baseUrl = "http://localhost:5000/api/Category";
 
 class Categorydatasource {
   Future<void> createCategory(String name, String description) async {
     try {
-      final response = await http.post(Uri.parse("$baseUrl/createcatgory"),
+      final response = await http.post(Uri.parse("$baseUrl/createCategory"),
           headers: {
             'Content-Type': 'application/json',
           },
@@ -25,7 +25,7 @@ class Categorydatasource {
 
   Future<List<Categorymodel>> getallCategory() async {
     try {
-      final response = await http.get(Uri.parse("$baseUrl/getallcatgory"));
+      final response = await http.get(Uri.parse("$baseUrl/getallcreateCategory"));
 
       if (response.statusCode == 200) {
         final List<dynamic> data = jsonDecode(response.body);
