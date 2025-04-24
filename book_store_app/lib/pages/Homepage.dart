@@ -22,46 +22,43 @@ class _HomepageState extends State<Homepage> {
         backgroundColor: Colors.blueAccent,
       ),
       drawer: Drawer(
-       child: ListView(
-        children: [
-        CircleAvatar(child: Image.asset("assets/books.jpg"),),
-        UserAccountsDrawerHeader(accountName: Text("Semera Ababa"), accountEmail:Text("Semeraababa@gmail.com")),
-        SizedBox(height: 40,),
-        ListTile(
-          leading: Icon(Icons.home),
-          onTap: (){},
-          title: Text("Home"),
+        child: ListView(
+          children: [
+            CircleAvatar(child: Image.asset("assets/books.jpg"),),
+            UserAccountsDrawerHeader(accountName: Text("Semera Ababa"), accountEmail: Text("Semeraababa@gmail.com")),
+            SizedBox(height: 40,),
+            ListTile(
+              leading: Icon(Icons.home),
+              onTap: () {},
+              title: Text("Home"),
+            ),
+            SizedBox(height: 20,),
+            ListTile(
+              leading: Icon(Icons.add),
+              onTap: () {},
+              title: Text("Create Book"),
+            ),
+            SizedBox(height: 20,),
+            ListTile(
+              leading: Icon(Icons.shopping_cart_outlined),
+              onTap: () {},
+              title: Text("Cart"),
+            ),
+            SizedBox(height: 20,),
+            ListTile(
+              leading: Icon(Icons.save),
+              onTap: () {},
+              title: Text("Saved"),
+            ),
+            SizedBox(height: 80,),
+            Divider(height: 2, color: Colors.black,),
+            ListTile(
+              leading: Icon(Icons.save),
+              onTap: () {},
+              title: Text("Saved"),
+            )
+          ],
         ),
-        SizedBox(height: 20,),
-        ListTile(
-          leading: Icon(Icons.add),
-          onTap: (){},
-          title: Text("create Book"),
-        ),
-        SizedBox(height: 20,),
-        ListTile(
-          leading: Icon(Icons.shopping_cart_outlined),
-          onTap: (){},
-          title: Text("Cart"),
-        ),SizedBox(height: 20,),
-        ListTile(
-          leading: Icon(Icons.save),
-          onTap: (){},
-          title: Text("Saved"),
-        ),
-
-        SizedBox(height: 80,),
-        Divider(height: 2,color: Colors.black,),
-        ListTile(
-          leading: Icon(Icons.save),
-          onTap: (){},
-          title: Text("Saved"),
-        )
-        
-        ],
-
-
-       ),
       ),
       body: SafeArea(
         child: Column(
@@ -85,12 +82,12 @@ class _HomepageState extends State<Homepage> {
             ),
             SizedBox(height: 20),
             Flexible(
-              child: Bookpages(), 
+              child: Bookpages(),
             ),
           ],
         ),
       ),
-      bottomNavigationBar: Bottomnavbar(),
+      bottomNavigationBar: Bottomnavbar(), 
     );
   }
 }
