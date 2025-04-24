@@ -85,7 +85,7 @@ class _HomepageState extends State<Homepage> {
             ),
             SizedBox(height: 20),
             Flexible(
-              child: Bookpages(), // This will display the books grid
+              child: Bookpages(), 
             ),
           ],
         ),

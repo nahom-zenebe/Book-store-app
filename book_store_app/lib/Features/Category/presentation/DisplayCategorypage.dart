@@ -1,3 +1,4 @@
+import 'package:book_store_app/Features/Category/presentation/Categoryevent.dart';
 import 'package:book_store_app/Features/Category/presentation/Categorystate.dart';
 import 'package:book_store_app/Features/Category/presentation/Cateogorybloc.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,13 @@ class Displaycategorypage extends StatefulWidget {
 }
 
 class _DisplaycategorypageState extends State<Displaycategorypage> {
+   @override
+  void initState() {
+    super.initState();
+    BlocProvider.of<Cateogorybloc>(context).add(GetAllCategory());
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final categorybloc = BlocProvider.of<Cateogorybloc>(context);
@@ -33,11 +41,15 @@ class _DisplaycategorypageState extends State<Displaycategorypage> {
                   final category = state.Category[index];
 
                   return Container(
-                    padding: EdgeInsets.all(5),
+                    width: 200,
+                    height: 50,
                     decoration: BoxDecoration(
-                      color: Colors.amberAccent
+                      color: Colors.black
                     ),
-                    child: Text(category.name),
+                    child: Text(category.name,
+                    style: TextStyle(
+                      color: Colors.white
+                    ),),
                   );
                 });
                 

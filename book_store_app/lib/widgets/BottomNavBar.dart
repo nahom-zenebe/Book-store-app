@@ -1,4 +1,5 @@
 import 'package:book_store_app/Features/Book/presentation/pages/Bookpages.dart';
+import 'package:book_store_app/Features/Category/presentation/DisplayCategorypage.dart';
 import 'package:book_store_app/pages/Cartpage.dart';
 import 'package:book_store_app/pages/CreateBook.dart';
 import 'package:book_store_app/pages/CreateCategorypage.dart';
@@ -16,7 +17,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
 
   final List<Widget> _pages = [
     Bookpages(),
-    Center(child: Text("Search")),
+       Displaycategorypage(),
     Cartpage(),
    Createcategorypage(),
   ];

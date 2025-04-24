@@ -27,210 +27,177 @@ class _BookpagesState extends State<Bookpages> {
   Widget build(BuildContext context) {
     final bookBloc = BlocProvider.of<BookBloc>(context);
 
-    return Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Container(
-          child: BlocBuilder<BookBloc, BookState>(
-            builder: (context, state) {
-              if (state is BookLoading) {
-                return Center(child: CircularProgressIndicator());
-              } else if (state is BookLoaded) {
-                return GridView.builder(
-                  padding: EdgeInsets.all(10),
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10,
-                      childAspectRatio: 0.65),
-                  itemCount: state.books.length,
-                  itemBuilder: (context, index) {
-                    final book = state.books[index];
+    return BlocBuilder<BookBloc, BookState>(
+      builder: (context, state) {
+        if (state is BookLoading) {
+          return Center(child: CircularProgressIndicator());
+        } else if (state is BookLoaded) {
+          return GridView.builder(
+            padding: EdgeInsets.all(10),
+            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+              crossAxisCount: 2,
+              crossAxisSpacing: 10,
+              mainAxisSpacing: 10,
+              childAspectRatio: 0.65,
+            ),
+            itemCount: state.books.length,
+            itemBuilder: (context, index) {
+              final book = state.books[index];
 
-                    return Card(
-                      elevation: 4,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(16),
+              return Card(
+                elevation: 4,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(16),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Stack(
+                        children: [
+                          Image.asset(
+                            "assets/books.jpg",
+                            width: double.infinity,
+                            height: 160,
+                            fit: BoxFit.cover,
+                          ),
+                          Positioned(
+                            top: 8,
+                            right: 8,
+                            child: IconButton(
+                              icon: Icon(
+                                book.featured
+                                    ? Icons.favorite
+                                    : Icons.favorite_border,
+                                color: book.featured ? Colors.red : Colors.white,
+                                size: 28,
+                              ),
+                              onPressed: () {
+                                setState(() {
+                                  book.featured = !book.featured;
+                                });
+                              },
+                            ),
+                          ),
+                        ],
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(16),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Stack(
-                              children: [
-                                Image.asset(
-                                  "assets/books.jpg",
-                                  width: double.infinity,
-                                  height: 160,
-                                  fit: BoxFit.cover,
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.all(10.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                book.title,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                Positioned(
-                                  top: 8,
-                                  right: 8,
-                                  child: IconButton(
-                                    icon: Icon(
-                                      book.featured
-                                          ? Icons.favorite
-                                          : Icons.favorite_border,
-                                      color: book.featured
-                                          ? Colors.red
-                                          : Colors.white,
-                                      size: 28,
-                                    ),
-                                    onPressed: () {
-                                      setState(() {
-                                        book.featured = !book.featured;
-                                      });
-                                    },
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(height: 4),
+                              Text(
+                                book.author,
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.grey[600],
+                                ),
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                              ),
+                              SizedBox(height: 6),
+                              Container(
+                                padding: EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                                decoration: BoxDecoration(
+                                  color: Colors.green[700],
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Text(
+                                  book.category,
+                                  style: TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 12,
                                   ),
                                 ),
-                              ],
-                            ),
-                            Expanded(
-                              child: Padding(
-                                padding: const EdgeInsets.all(10.0),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(
-                                      book.title,
-                                      style: TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w600,
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 4),
-                                    Text(
-                                      book.author,
-                                      style: TextStyle(
-                                        fontSize: 14,
-                                        color: Colors.grey[600],
-                                      ),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.ellipsis,
-                                    ),
-                                    SizedBox(height: 6),
-                                    Container(
-                                      padding: EdgeInsets.symmetric(
-                                          horizontal: 8, vertical: 4),
-                                      decoration: BoxDecoration(
-                                        color: Colors.green[700],
-                                        borderRadius: BorderRadius.circular(20),
-                                      ),
-                                      child: Text(
-                                        book.category,
-                                        style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 12,
-                                        ),
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Row(
-                                          children: [
-                                            Icon(Icons.star,
-                                                color: Colors.orange, size: 16),
-                                            SizedBox(width: 4),
-                                            Text(
-                                              book.rating.toString(),
-                                              style: TextStyle(
-                                                fontSize: 14,
-                                                color: Colors.orange,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Text(
-                                          '\$${book.price.toStringAsFixed(2)}',
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.green[800],
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(height: 10),
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: ElevatedButton(
-                                            onPressed: () {
-                                              context
-                                                  .read<Cartbloc>()
-                                                  .add(Addtocart(books: book));
-
-                                              /*Fluttertoast.showToast(
-                                                  msg: "${ book.title } successfully Add to Cart",
-                                                  toastLength:
-                                                      Toast.LENGTH_SHORT,
-                                                  gravity: ToastGravity.CENTER,
-                                                  timeInSecForIosWeb: 1,
-                                                  backgroundColor: const Color.fromARGB(255, 92, 214, 17),
-                                                  textColor: Colors.white,
-                                                  fontSize: 16.0);*/
-                                            },
-                                            style: ElevatedButton.styleFrom(
-                                              backgroundColor:
-                                                  Colors.green[800],
-                                              minimumSize: Size(100, 40),
-                                              shape: RoundedRectangleBorder(
-                                                borderRadius:
-                                                    BorderRadius.circular(12),
-                                              ),
-                                            ),
-                                            child: Text(
-                                              "Add",
-                                              style: TextStyle(
-                                                  color: Colors.white),
-                                            ),
-                                          ),
-                                        ),
-                                        SizedBox(width: 8),
-                                        ElevatedButton(
-                                          onPressed: () {
-                                           
-                                             Navigator.push(context, MaterialPageRoute(builder: (_) => Detailbooks(books: book,)));
-                                          },
-                                          style: ElevatedButton.styleFrom(
-                                            backgroundColor:
-                                                Colors.blueGrey[800],
-                                            minimumSize: Size(100, 40),
-                                            shape: RoundedRectangleBorder(
-                                              borderRadius:
-                                                  BorderRadius.circular(12),
-                                            ),
-                                          ),
-                                          child: Text(
-                                            "View",
-                                            style:
-                                                TextStyle(color: Colors.white),
-                                          ),
-                                        ),
-                                      ],
-                                    )
-                                  ],
-                                ),
                               ),
-                            ),
-                          ],
+                              Spacer(),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(Icons.star, color: Colors.orange, size: 16),
+                                      SizedBox(width: 4),
+                                      Text(
+                                        book.rating.toString(),
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.orange,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Text(
+                                    '\$${book.price.toStringAsFixed(2)}',
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.green[800],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              SizedBox(height: 10),
+                              Row(
+                                children: [
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        context.read<Cartbloc>().add(Addtocart(books: book));
+                                      },
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Colors.green[800],
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(12),
+                                        ),
+                                      ),
+                                      child: Text("Add", style: TextStyle(color: Colors.white)),
+                                    ),
+                                  ),
+                                  SizedBox(width: 8),
+                                  ElevatedButton(
+                                    onPressed: () {
+                                      Navigator.push(context, MaterialPageRoute(
+                                        builder: (_) => Detailbooks(books: book),
+                                      ));
+                                    },
+                                    style: ElevatedButton.styleFrom(
+                                      backgroundColor: Colors.blueGrey[800],
+                                      shape: RoundedRectangleBorder(
+                                        borderRadius: BorderRadius.circular(12),
+                                      ),
+                                    ),
+                                    child: Text("View", style: TextStyle(color: Colors.white)),
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    );
-                  },
-                );
-              } else if (state is BookError) {
-                return Center(child: Text('Error: ${state.message}'));
-              }
-              return Container();
+                    ],
+                  ),
+                ),
+              );
             },
-          ),
-        ));
+          );
+        } else if (state is BookError) {
+          return Center(child: Text('Error: ${state.message}'));
+        }
+        return Container();
+      },
+    );
   }
 }
