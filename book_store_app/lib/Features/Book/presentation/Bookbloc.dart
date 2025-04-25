@@ -12,6 +12,9 @@ class BookBloc extends Bloc<BookEvent, BookState> {
     on<GetAllBooks>(_onGetAllBooks);
     on<AddBook>(_onAddBook);
     on<DeleteBook>(_onDeleteBook);
+     on<SearchBooks>(_onSearchBooks); 
+    
+    
   }
 
   Future<void> _onGetAllBooks(
@@ -26,20 +29,24 @@ class BookBloc extends Bloc<BookEvent, BookState> {
   }
 
   Future<void> _onAddBook(AddBook event, Emitter<BookState> emit) async {
-  emit(const BookLoading());
-  try {
-    
+    emit(const BookLoading());
+    try {
+      await repository.createBook(
+          event.title,
+          event.author,
+          event.category,
+          event.coverImage,
+          event.rating,
+          event.description,
+          event.price,
+          event.featured);
 
-    await repository.createBook(event.title,event.author,event.category,event.coverImage
-  ,event.rating,event.description,event.price,event.featured); 
-
-    final books = await repository.getallBook();
-    emit(BookLoaded(books));
-  } catch (error) {
-    emit(const BookError("Failed to add book"));
+      final books = await repository.getallBook();
+      emit(BookLoaded(books));
+    } catch (error) {
+      emit(const BookError("Failed to add book"));
+    }
   }
-}
-
 
   Future<void> _onDeleteBook(DeleteBook event, Emitter<BookState> emit) async {
     emit(const BookLoading());
@@ -51,4 +58,16 @@ class BookBloc extends Bloc<BookEvent, BookState> {
       emit(const BookError("Failed to delete book"));
     }
   }
+
+    void _onSearchBooks(SearchBooks event, Emitter<BookState> emit) {
+    final filteredBooks = _allBooks.where((book) =>
+      book.title.toLowerCase().contains(event.query.toLowerCase()) ||
+      book.author.toLowerCase().contains(event.query.toLowerCase()) ||
+      book.category.toLowerCase().contains(event.query.toLowerCase())
+    ).toList();
+
+    emit(BookLoaded(filteredBooks));
+  }
+
+
 }

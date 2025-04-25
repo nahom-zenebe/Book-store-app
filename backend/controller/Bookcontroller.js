@@ -76,3 +76,26 @@ exports.deleteBook = async (req, res) => {
     res.status(500).json({ message: 'Server Error', error: err });
   }
 };
+
+
+exports.search = async (req, res) => {
+  try {
+    const { bookinfo } = req.query;
+
+    if (!bookinfo || bookinfo.trim() === '') {
+      return res.status(400).json({ message: 'Search query is required' });
+    }
+
+    const results = await Book.find({
+      $or: [
+        { title: { $regex: bookinfo, $options: 'i' } },
+        { author: { $regex: bookinfo, $options: 'i' } },
+        { category: { $regex: bookinfo, $options: 'i' } },
+      ],
+    }).populate("category");
+
+    res.status(200).json(results);
+  } catch (error) {
+    res.status(500).json({ message: 'Server Error', error });
+  }
+};

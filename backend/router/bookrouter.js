@@ -4,6 +4,7 @@ const bookController = require('../controller/Bookcontroller');
 
 router.get('/getallrouter', bookController.getAllBooks);
 router.get('/routerbyid/:id', bookController.getBookById);
+router.get('/searchbooks', bookController.search);
 router.post('/createrouter', bookController.createBook);
 router.put('/updaterouter/:id', bookController.updateBook);
 router.delete('/deleterouter/:id', bookController.deleteBook);
