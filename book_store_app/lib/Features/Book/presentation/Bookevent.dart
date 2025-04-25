@@ -29,13 +29,31 @@ class AddBook extends BookEvent {
   });
 
   @override
-  List<Object?> get props =>
-      [title, author, category, description, price, coverImage, rating, featured];
+  List<Object?> get props => [
+        title,
+        author,
+        category,
+        description,
+        price,
+        coverImage,
+        rating,
+        featured
+      ];
 }
 
 class GetAllBooks extends BookEvent {
   const GetAllBooks();
 }
+
+class SearchBooks extends BookEvent {
+  final String bookinfo;
+
+  SearchBooks({required this.bookinfo});
+
+  @override
+  List<Object?> get props => [bookinfo];
+}
+
 
 class DeleteBook extends BookEvent {
   final String id;
@@ -45,4 +63,3 @@ class DeleteBook extends BookEvent {
   @override
   List<Object?> get props => [id];
 }
-

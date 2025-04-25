@@ -86,6 +86,7 @@ final List<dynamic> data = jsonDecode(response.body);
     }
   }
 
+
   Future<Bookentities?> getbyIdBook(String Id) async {
     try {
       final response = await http.get(Uri.parse("$baseUrl/getallbook/$Id"));
@@ -100,6 +101,21 @@ final List<dynamic> data = jsonDecode(response.body);
       print(error);
     }
   }
+  @override
+
+Future<List<Bookentities>> searchBooks(String bookInfo) async {
+  final response = await http.get(Uri.parse('$baseUrl/searchbooks/?bookinfo=$bookInfo'));
+  
+  if (response.statusCode == 200) {
+    final List decoded = jsonDecode(response.body);
+    return decoded.map((e) => BookModel.fromjson(e)).toList();
+  } else {
+    throw Exception('Failed to search books');
+  }
+}
+
+
+
 
   /*Future<BookEntity> updateBook(
   {

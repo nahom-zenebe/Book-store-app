@@ -1,15 +1,16 @@
+import 'dart:async';
+import 'package:book_store_app/Features/Book/presentation/Cartbloc.dart';
+import 'package:book_store_app/Features/Book/presentation/Cartevent.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:book_store_app/Features/Book/presentation/Bookbloc.dart';
 import 'package:book_store_app/Features/Book/presentation/Bookevent.dart';
 import 'package:book_store_app/Features/Book/presentation/Bookstate.dart';
-import 'package:book_store_app/Features/Book/presentation/Cartbloc.dart';
-import 'package:book_store_app/Features/Book/presentation/Cartevent.dart';
 import 'package:book_store_app/Features/Category/presentation/DisplayCategorypage.dart';
 import 'package:book_store_app/pages/Cartpage.dart';
 import 'package:book_store_app/pages/CreateBook.dart';
 import 'package:book_store_app/pages/DetailBooks.dart';
 import 'package:book_store_app/widgets/BottomNavBar.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Homepage extends StatefulWidget {
   const Homepage({super.key});
@@ -20,16 +21,27 @@ class Homepage extends StatefulWidget {
 
 class _HomepageState extends State<Homepage> {
   TextEditingController _searchController = TextEditingController();
+  Timer? _debounce;
+
   @override
   void initState() {
     super.initState();
     BlocProvider.of<BookBloc>(context).add(GetAllBooks());
   }
 
-  void handleSearch() {
-    final booksdata = BlocProvider.of<BookBloc>(context).add(GetAllBooks());
+  @override
+  void dispose() {
+    _searchController.dispose();
+    _debounce?.cancel();
+    super.dispose();
+  }
 
-    booksdata.where
+  // Debounce the search input to prevent excessive events
+  void handleSearch(String query) {
+    if (_debounce?.isActive ?? false) _debounce?.cancel();
+    _debounce = Timer(const Duration(milliseconds: 500), () {
+      BlocProvider.of<BookBloc>(context).add(SearchBooks(bookinfo: query));
+    });
   }
 
   @override
@@ -87,6 +99,7 @@ class _HomepageState extends State<Homepage> {
               padding: const EdgeInsets.symmetric(horizontal: 16),
               child: TextField(
                 controller: _searchController,
+                onChanged: handleSearch, // Trigger search as user types
                 decoration: InputDecoration(
                   prefixIcon: Icon(Icons.search),
                   hintText: "Search",

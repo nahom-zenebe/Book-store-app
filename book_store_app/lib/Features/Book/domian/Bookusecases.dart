@@ -29,6 +29,10 @@ class Bookusecases {
   Future<void> DeleteBook(final String Id) async {
     return await bookrepository.DeleteBooks( Id);
   }
+    Future<List<Bookentities>> SearchBooks(String bookInfo)async{
+      return await bookrepository.SearchBooks(bookInfo);
+
+    }
 
  /* Future<Bookentities> UpdateBook(final String Id,final String title,
   final String author,

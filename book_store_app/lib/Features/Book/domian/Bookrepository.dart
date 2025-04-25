@@ -10,6 +10,8 @@ abstract class Bookrepository {
   final String coverImage,
   final double rating,
   final bool featured,);
+  
+   Future<List<Bookentities>> SearchBooks(String bookInfo);
   Future<List<Bookentities>> getallBook();
   /*Future<Bookentities> getbyIdBook(String Id);*/
   Future<void> DeleteBooks(String Id);

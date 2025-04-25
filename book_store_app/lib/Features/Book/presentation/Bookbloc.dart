@@ -59,15 +59,16 @@ class BookBloc extends Bloc<BookEvent, BookState> {
     }
   }
 
-    void _onSearchBooks(SearchBooks event, Emitter<BookState> emit) {
-    final filteredBooks = _allBooks.where((book) =>
-      book.title.toLowerCase().contains(event.query.toLowerCase()) ||
-      book.author.toLowerCase().contains(event.query.toLowerCase()) ||
-      book.category.toLowerCase().contains(event.query.toLowerCase())
-    ).toList();
-
-    emit(BookLoaded(filteredBooks));
+    Future<void> _onSearchBooks(SearchBooks event, Emitter<BookState> emit) async {
+  emit(const BookLoading());
+  try {
+    final books = await repository.SearchBooks(event.bookinfo); // Fetch matching books
+    emit(BookLoaded(books)); // Show only searched results
+  } catch (error) {
+    emit(const BookError("Failed to search books"));
   }
+}
+
 
 
 }

@@ -32,6 +32,11 @@ class Bookrepostoryimp implements Bookrepository {
     return await bookdatasource.deleteBooks(Id);
   }
 
+ Future<List<Bookentities>> SearchBooks(  String bookInfo) async {
+    return await bookdatasource.searchBooks(bookInfo);
+  }
+
+
   /*@override
   Future<Bookentities> UpdateBook(
     
