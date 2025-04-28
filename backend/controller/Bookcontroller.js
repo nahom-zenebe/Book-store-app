@@ -90,12 +90,13 @@ exports.search = async (req, res) => {
       $or: [
         { title: { $regex: bookinfo, $options: 'i' } },
         { author: { $regex: bookinfo, $options: 'i' } },
-        { category: { $regex: bookinfo, $options: 'i' } },
+       
       ],
-    }).populate("category");
+    })
 
     res.status(200).json(results);
   } catch (error) {
-    res.status(500).json({ message: 'Server Error', error });
+    console.error("Error during search:", error);
+    res.status(500).json({ message: 'Server Error', error: error.message });  
   }
 };

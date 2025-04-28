@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:book_store_app/Features/Book/presentation/Cartbloc.dart';
 import 'package:book_store_app/Features/Book/presentation/Cartevent.dart';
+import 'package:book_store_app/pages/Profilepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:book_store_app/Features/Book/presentation/Bookbloc.dart';
@@ -36,7 +37,6 @@ class _HomepageState extends State<Homepage> {
     super.dispose();
   }
 
-  // Debounce the search input to prevent excessive events
   void handleSearch(String query) {
     if (_debounce?.isActive ?? false) _debounce?.cancel();
     _debounce = Timer(const Duration(milliseconds: 500), () {
@@ -82,10 +82,29 @@ class _HomepageState extends State<Homepage> {
                     context, MaterialPageRoute(builder: (_) => Cartpage()));
               },
             ),
-            Divider(height: 2, color: Colors.black),
+            ListTile(
+              leading: Icon(Icons.person),
+              title: Text("Profile"),
+              onTap: () {
+                Navigator.push(context,
+                    MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
+            ),
             ListTile(
               leading: Icon(Icons.save),
               title: Text("Saved"),
+              onTap: () {},
+            ),
+            SizedBox(
+              height: 90,
+            ),
+            Divider(height: 2, color: Colors.black),
+            SizedBox(
+              height: 5,
+            ),
+            ListTile(
+              leading: Icon(Icons.logout),
+              title: Text("Logout"),
               onTap: () {},
             ),
           ],
