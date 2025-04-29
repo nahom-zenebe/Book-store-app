@@ -38,6 +38,7 @@ dependencies:
   equatable: ^2.0.7
   flutter_bloc: ^9.1.0
   fluttertoast: ^8.2.12
+  fl_chart: ^0.71.0
 
 dev_dependencies:
   flutter_test:
