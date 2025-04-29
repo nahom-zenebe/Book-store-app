@@ -42,6 +42,18 @@ exports.register = async (req, res) => {
   }
 };
 
+exports.totaluser=async(req,res)=>{
+  try{
+    const totaluser=await User.countDocuments()
+
+    res.status(200).json(totaluser)
+
+  }
+  catch(error){
+    res.status(500).json({ message: 'Server error' });
+  }
+}
+
 
 
 exports.login = async (req, res) => {
