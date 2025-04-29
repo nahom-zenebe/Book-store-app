@@ -100,3 +100,13 @@ exports.search = async (req, res) => {
     res.status(500).json({ message: 'Server Error', error: error.message });  
   }
 };
+
+exports.countNumberOfBooks = async (req, res) => {
+  try {
+    const totalNumber = await Book.countDocuments();
+    res.status(200).json({ total: totalNumber });
+  } catch (error) {
+    console.error("Error during counting the total number of books:", error);
+    res.status(500).json({ message: 'Server Error', error: error.message });
+  }
+};
