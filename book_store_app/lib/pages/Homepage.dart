@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:book_store_app/Features/Book/presentation/Cartbloc.dart';
 import 'package:book_store_app/Features/Book/presentation/Cartevent.dart';
+import 'package:book_store_app/pages/AdminDashboard.dart';
 import 'package:book_store_app/pages/Profilepage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -88,6 +89,14 @@ class _HomepageState extends State<Homepage> {
               onTap: () {
                 Navigator.push(context,
                     MaterialPageRoute(builder: (context) => ProfilePage()));
+              },
+            ),
+            ListTile(
+              leading: Icon(Icons.shopping_cart_outlined),
+              title: Text("Admin"),
+              onTap: () {
+                Navigator.push(
+                    context, MaterialPageRoute(builder: (_) => Admindashboard()));
               },
             ),
             ListTile(
