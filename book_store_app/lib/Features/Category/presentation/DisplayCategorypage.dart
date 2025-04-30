@@ -39,10 +39,15 @@ class _DisplaycategorypageState extends State<Displaycategorypage> {
                   itemBuilder: (context, index) {
                     final category = state.Category[index];
                     return Container(
+                      padding: EdgeInsets.only(left: 5,right: 5),
                       width: 150, // Fixed width for each item
                       margin: EdgeInsets.only(right: 10),
                       decoration: BoxDecoration(
                         color: _getCategoryColor(index),
+                        border: Border.all(
+                          color: Colors.black,
+                          width: 2
+                        ),
                         borderRadius: BorderRadius.circular(10),
                         boxShadow: [
                           BoxShadow(
@@ -56,7 +61,7 @@ class _DisplaycategorypageState extends State<Displaycategorypage> {
                         child: Text(
                           category.name,
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Colors.black,
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                           ),
@@ -79,14 +84,8 @@ class _DisplaycategorypageState extends State<Displaycategorypage> {
 
   Color _getCategoryColor(int index) {
     final colors = [
-      Colors.blue.shade600,
-      Colors.red.shade600,
-      Colors.green.shade600,
-      Colors.purple.shade600,
-      Colors.orange.shade600,
-      Colors.teal.shade600,
-      Colors.indigo.shade600,
-      Colors.pink.shade600,
+      Colors.white,
+      
     ];
     return colors[index % colors.length];
   }
