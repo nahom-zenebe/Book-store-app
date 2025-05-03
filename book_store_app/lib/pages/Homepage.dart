@@ -141,9 +141,9 @@ class _HomepageState extends State<Homepage> {
                 ),
               ),
             ),
-            SizedBox(height: 20),
+ 
             SizedBox(height: 100, child: Displaycategorypage()),
-            SizedBox(height: 20),
+       
             Expanded(
               child: BlocBuilder<BookBloc, BookState>(
                 builder: (context, state) {
