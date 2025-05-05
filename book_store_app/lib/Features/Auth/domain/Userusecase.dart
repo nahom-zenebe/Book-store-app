@@ -6,19 +6,19 @@ class Userusecase {
 
   Userusecase({required this.userepository});
 
-  Future<Userentites> Signup(final String name, final String email,
+  Future<Userentites?> Signup(final String name, final String email,
       final String password, final String role) async {
-    return await userepository.Signup(name, email, password, role);
+    return userepository.signup(name, email, password, role);
   }
 
-  Future<Userentites> Login(
+  Future<Userentites?> Login(
     final String email,
     final String password,
   ) async {
-    return await userepository.Login(email, password);
+    return await userepository.login(email, password);
   }
 
   Future<void> Logout(final String id) async {
-    return await userepository.Logout();
+    return await userepository.logout();
   }
 }

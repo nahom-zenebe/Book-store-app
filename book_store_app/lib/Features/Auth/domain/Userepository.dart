@@ -1,12 +1,7 @@
 import 'package:book_store_app/Features/Auth/domain/Userentites.dart';
 
 abstract class Userepository {
-  Future<Userentites> Signup(final String name, final String email,
-      final String password, final String role);
-
-  Future<Userentites> Login(
-    final String email,
-    final String password,
-  );
-  Future<void> Logout();
+  Future<Userentites?> login(String email, String password);
+  Future<Userentites?> signup(String name, String email, String password, String role);
+  Future<void> logout();
 }
