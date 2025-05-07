@@ -1,3 +1,4 @@
+import 'package:book_store_app/Features/Auth/presentation/Authbloc.dart';
 import 'package:book_store_app/Features/Book/data/Bookdatasource.dart';
 import 'package:book_store_app/Features/Book/data/BookrepostoryImp.dart';
 import 'package:book_store_app/Features/Book/presentation/Bookbloc.dart';
@@ -25,6 +26,7 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(create: (context)=>BookBloc(Bookrepostoryimp(bookdatasource:Bookdatasource() ))),
           BlocProvider(create: (context)=> Cartbloc()),
+          BlocProvider(create: (context)=> AuthBloc()),
           BlocProvider(create: (context)=>Cateogorybloc(Categoryimplrepository(categorydatasource:Categorydatasource() )))
 
         ],
