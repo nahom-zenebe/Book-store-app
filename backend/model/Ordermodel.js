@@ -1,22 +1,79 @@
 const mongoose = require('mongoose');
 
-const orderSchema = new mongoose.Schema({
-  user: { type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true },
-  items: [
-    {
-      book: { type: mongoose.Schema.Types.ObjectId, ref: 'Book', required: true },
-      quantity: { type: Number, default: 1 },
-    }
-  ],
-  totalAmount: { type: Number, required: true },
-  isPaid: { type: Boolean, default: false },
-  paymentMethod: { type: String }, 
-  paymentResult: {
-    id: String,
-    status: String,
-    update_time: String,
-    email_address: String,
+const orderItemSchema = new mongoose.Schema({
+  book: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Book',
+    required: true
   },
+  quantity: {
+    type: Number,
+    required: true,
+    min: 1
+  },
+  price: {
+    type: Number,
+    required: true
+  }
+});
+
+const orderSchema = new mongoose.Schema({
+  user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
+  items: [orderItemSchema],
+  totalAmount: {
+    type: Number,
+    required: true
+  },
+  discount: {
+    type: Number,
+    default: 0
+  },
+  finalAmount: {
+    type: Number,
+    required: true
+  },
+  status: {
+    type: String,
+    enum: ['pending', 'processing', 'shipped', 'delivered', 'cancelled'],
+    default: 'pending'
+  },
+  paymentStatus: {
+    type: String,
+    enum: ['pending', 'completed', 'failed', 'refunded'],
+    default: 'pending'
+  },
+  paymentMethod: {
+    type: String,
+    enum: ['stripe', 'paypal'],
+    required: true
+  },
+  paymentIntentId: String,
+  shippingAddress: {
+    street: String,
+    city: String,
+    state: String,
+    zipCode: String,
+    country: String
+  },
+  trackingNumber: String,
+  estimatedDelivery: Date,
+  notes: String
 }, { timestamps: true });
 
-module.exports = mongoose.model('Order', orderSchema);
+// Calculate final amount before saving
+orderSchema.pre('save', function(next) {
+  this.finalAmount = this.totalAmount - this.discount;
+  next();
+});
+
+// Virtual for order summary
+orderSchema.virtual('itemCount').get(function() {
+  return this.items.reduce((total, item) => total + item.quantity, 0);
+});
+
+const Order = mongoose.model('Order', orderSchema);
+module.exports = Order;
