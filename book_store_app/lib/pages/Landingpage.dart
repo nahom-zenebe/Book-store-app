@@ -72,7 +72,7 @@ class Landingpage extends StatelessWidget {
             ElevatedButton(
                 onPressed: () {
                   Navigator.push(context,
-                      MaterialPageRoute(builder: (context) => Homepage()));
+                      MaterialPageRoute(builder: (context) => Signuppage()));
                 },
                 style: ElevatedButton.styleFrom(
                     minimumSize: Size(400, 60),

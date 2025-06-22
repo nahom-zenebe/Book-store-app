@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import '../Features/Book/presentation/Bookbloc.dart'; 
 
-class Createbook extends StatefulWidget {
-  const Createbook({super.key});
+class CreateBook extends StatefulWidget {
+  const CreateBook({super.key});
 
   @override
-  State<Createbook> createState() => _CreatebookState();
+  State<CreateBook> createState() => _CreateBookState();
 }
 
-class _CreatebookState extends State<Createbook> {
+class _CreateBookState extends State<CreateBook> {
   final formKey = GlobalKey<FormState>();
-
   final TextEditingController _titleController = TextEditingController();
   final TextEditingController _authorController = TextEditingController();
   final TextEditingController _categoryController = TextEditingController();
@@ -20,131 +18,191 @@ class _CreatebookState extends State<Createbook> {
   final TextEditingController _coverImageController = TextEditingController();
   final TextEditingController _featuredImageController = TextEditingController();
 
-  String selectedBookType = "Regular"; // Default value
+  String selectedBookType = "Regular";
+  String? _coverImagePath;
 
   void validateForm() {
     if (formKey.currentState!.validate()) {
       // Send data to Bloc
-     /* BlocProvider.of<BookBloc>(context).add(
-       Createbook(
+      /* BlocProvider.of<BookBloc>(context).add(
+        CreateBookEvent(
           title: _titleController.text,
           author: _authorController.text,
           category: _categoryController.text,
           description: _descriptionController.text,
           price: double.parse(_priceController.text),
-          coverImage: _coverImageController.text,
+          coverImage: _coverImagePath ?? '',
           featuredImage: _featuredImageController.text,
           bookType: selectedBookType,
-        ),*/
-   
+        ),
+      ); */
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Book created successfully!')),
+      );
     }
+  }
+
+  Future<void> _pickCoverImage() async {
+    // In a real app, you would implement image picking here
+    // For demo purposes, we'll just simulate it
+    await Future.delayed(const Duration(milliseconds: 300));
+    setState(() {
+      _coverImagePath = 'https://via.placeholder.com/300x400';
+    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Create Book Posts"),
+        title: const Text("Create New Book", style: TextStyle(fontWeight: FontWeight.bold)),
         centerTitle: true,
+        elevation: 0,
+        backgroundColor: Colors.transparent,
+        foregroundColor: Theme.of(context).primaryColor,
       ),
       body: SingleChildScrollView(
+        padding: const EdgeInsets.all(20),
         child: Form(
           key: formKey,
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              // Cover Image Upload
+              Center(
+                child: GestureDetector(
+                  onTap: _pickCoverImage,
+                  child: Container(
+                    width: 200,
+                    height: 280,
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(color: Colors.grey.shade300, width: 1.5),
+                    ),
+                    child: _coverImagePath == null
+                        ? Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Icon(Icons.add_photo_alternate_outlined, 
+                                  size: 50, color: Colors.grey.shade400),
+                              const SizedBox(height: 10),
+                              Text("Add Cover Image", 
+                                  style: TextStyle(color: Colors.grey.shade600)),
+                            ],
+                          )
+                        : ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: Image.network(
+                              _coverImagePath!,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
+                  ),
+                ),
+              ),
               const SizedBox(height: 30),
               
-      
-
               // Book Type Dropdown
-             
-
-              const SizedBox(height: 20),
-              // Title
-              buildTextField(_titleController, "Enter title"),
-              buildTextField(_authorController, "Enter Author name"),
-              buildTextField(_categoryController, "Enter Category"),
-              buildTextField(_descriptionController, "Enter Description"),
-              buildTextField(_priceController, "Enter Price", isNumber: true),
-  const SizedBox(height: 20),
-
-   Container(
-                margin: const EdgeInsets.symmetric(horizontal: 10),
-                child: DropdownButtonFormField<String>(
-                  value: selectedBookType,
-                  items: ['Regular', 'Featured']
-                      .map((type) => DropdownMenuItem(
-                            value: type,
-                            child: Text(type),
-                          ))
-                      .toList(),
-                  decoration: InputDecoration(
-                    labelText: "Select Book Type",
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(10)),
-                  ),
-                  onChanged: (value) {
-                    setState(() {
-                      selectedBookType = value!;
-                    });
-                  },
-                ),
-              ),
-               const SizedBox(height: 20), 
-              Container(
-                width: 450,
-
-                decoration: BoxDecoration(
-                  border: Border.all(color: Colors.black, width: 1),
-                ),
-                child: Column(
-                  children: [
-                    Icon(Icons.image, size: 100), // Image placeholder
-                    const SizedBox(height: 10),
-                    Text("Upload the cover image"),
-                  ],
-                ),
-              ),
-
-              const SizedBox(height: 30),
-              ElevatedButton(
-                onPressed: validateForm,
-                style: ElevatedButton.styleFrom(
-                  minimumSize: const Size(500, 60),
-                  shape: RoundedRectangleBorder(
+              Text("Book Type", style: Theme.of(context).textTheme.labelLarge),
+              const SizedBox(height: 8),
+              DropdownButtonFormField<String>(
+                value: selectedBookType,
+                items: ['Regular', 'Featured']
+                    .map((type) => DropdownMenuItem(
+                          value: type,
+                          child: Text(type),
+                        ))
+                    .toList(),
+                decoration: InputDecoration(
+                  border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
                   ),
-                  backgroundColor: const Color.fromARGB(255, 41, 163, 45),
-                  side: const BorderSide(color: Colors.black, width: 2),
+                  filled: true,
+                  fillColor: Colors.grey.shade50,
                 ),
-                child: const Text(
-                  "Create Book",
-                  style: TextStyle(
-                      color: Color.fromARGB(255, 225, 222, 222),
-                      fontSize: 20.0),
+                onChanged: (value) {
+                  setState(() {
+                    selectedBookType = value!;
+                  });
+                },
+              ),
+              const SizedBox(height: 20),
+              
+              // Title
+              buildTextField(_titleController, "Title"),
+              const SizedBox(height: 15),
+              
+              // Author
+              buildTextField(_authorController, "Author"),
+              const SizedBox(height: 15),
+              
+              // Category
+              buildTextField(_categoryController, "Category"),
+              const SizedBox(height: 15),
+              
+              // Description
+              TextFormField(
+                controller: _descriptionController,
+                maxLines: 4,
+                validator: (value) => value!.isEmpty ? "Description is required" : null,
+                decoration: InputDecoration(
+                  labelText: "Description",
+                  alignLabelWithHint: true,
+                  border: OutlineInputBorder(
+                    borderRadius: BorderRadius.circular(10),
+                    borderSide: BorderSide(color: Colors.grey.shade300),
+                  ),
+                  filled: true,
+                  fillColor: Colors.grey.shade50,
                 ),
               ),
+              const SizedBox(height: 15),
+              
+              // Price
+              buildTextField(_priceController, "Price", isNumber: true),
               const SizedBox(height: 30),
-            ],
-          ),
+              
+              // Submit Button
+              SizedBox(
+                width: double.infinity,
+                height: 50,
+                child: ElevatedButton(
+                  onPressed: validateForm,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Theme.of(context).primaryColor,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+            
+                  ),
+                  
+                  
+                ),
+                child: Text("Post"),
+              ),
+           
+            )
+          ])
         ),
       ),
     );
   }
 
- 
-  Widget buildTextField(TextEditingController controller, String hint,
+  Widget buildTextField(TextEditingController controller, String label,
       {bool isNumber = false}) {
-    return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-      child: TextFormField(
-        controller: controller,
-        keyboardType: isNumber ? TextInputType.number : TextInputType.text,
-        validator: (value) => value!.isEmpty ? "This field is required" : null,
-        decoration: InputDecoration(
-          hintText: hint,
-          border: OutlineInputBorder(borderRadius: BorderRadius.circular(10)),
+    return TextFormField(
+      controller: controller,
+      keyboardType: isNumber ? TextInputType.number : TextInputType.text,
+      validator: (value) => value!.isEmpty ? "$label is required" : null,
+      decoration: InputDecoration(
+        labelText: label,
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10),
+          borderSide: BorderSide(color: Colors.grey.shade300),
         ),
+        filled: true,
+        fillColor: Colors.grey.shade50,
       ),
     );
   }

@@ -1,8 +1,8 @@
 import 'package:book_store_app/Features/Auth/data/Usermodel.dart';
 import 'package:book_store_app/Features/Auth/domain/Userentites.dart';
+import 'package:book_store_app/Features/Auth/presentation/authevent.dart';
+import 'package:book_store_app/Features/Auth/presentation/authstate.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import './authevent.dart';
-import './authstate.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 
@@ -15,10 +15,10 @@ class AuthBloc extends Bloc<Authevent, Authstate> {
 
   Future<void> _onSignup(AuthsignupEvent event, Emitter<Authstate> emit) async {
     emit(AuthloadingState());
-    final BaseApi = "http://localhost:5000/api/auth";
+    const baseApi = "http://localhost:5000/api/auth";
     try {
       final response = await http.post(
-        Uri.parse("$BaseApi/register"),
+        Uri.parse("$baseApi/register"),
         body: jsonEncode({
           'name': event.name,
           'email': event.email,
@@ -30,8 +30,11 @@ class AuthBloc extends Bloc<Authevent, Authstate> {
 
       if (response.statusCode == 201) {
         emit(AuthSuccessState(message: "Signup successful"));
-        Userentites user = Usermodel.fromjson(jsonDecode(response.body));
-         emit(AuthAuthenticatedState(user: user));
+        final user = Usermodel.fromjson(jsonDecode(response.body));
+        emit(AuthAuthenticatedState(user: user));
+      } else {
+        final error = jsonDecode(response.body)['message'] ?? 'Signup failed';
+        emit(AuthErrortate(message: error));
       }
     } catch (error) {
       emit(AuthErrortate(message: "An error occurred: $error"));
@@ -40,10 +43,10 @@ class AuthBloc extends Bloc<Authevent, Authstate> {
 
   Future<void> _onLogin(AuthloginEvent event, Emitter<Authstate> emit) async {
     emit(AuthloadingState());
-    final BaseApi = "http://localhost:5000/api/auth";
+    const baseApi = "http://localhost:5000/api/auth";
     try {
       final response = await http.post(
-        Uri.parse("$BaseApi/login"),
+        Uri.parse("$baseApi/login"),
         body: jsonEncode({
           'email': event.email,
           'password': event.password,
@@ -53,11 +56,11 @@ class AuthBloc extends Bloc<Authevent, Authstate> {
 
       if (response.statusCode == 200) {
         emit(AuthSuccessState(message: "Login successful"));
-        final user=Usermodel.fromjson(jsonDecode(response.body));
-
+        final user = Usermodel.fromjson(jsonDecode(response.body));
         emit(AuthAuthenticatedState(user: user));
       } else {
-        emit(AuthErrortate(message: "Login failed"));
+        final error = jsonDecode(response.body)['message'] ?? 'Login failed';
+        emit(AuthErrortate(message: error));
       }
     } catch (error) {
       emit(AuthErrortate(message: "An error occurred: $error"));
@@ -66,17 +69,18 @@ class AuthBloc extends Bloc<Authevent, Authstate> {
 
   Future<void> _onLogout(AuthlogoutEvent event, Emitter<Authstate> emit) async {
     emit(AuthloadingState());
-    final BaseApi = "http://localhost:5000/api/auth";
+    const baseApi = "http://localhost:5000/api/auth";
     try {
       final response = await http.post(
-        Uri.parse("$BaseApi/logout"),
+        Uri.parse("$baseApi/logout"),
         headers: {"Content-Type": "application/json"},
       );
 
       if (response.statusCode == 200) {
         emit(AuthSuccessState(message: "Logout successful"));
       } else {
-        emit(AuthErrortate(message: "Logout failed"));
+        final error = jsonDecode(response.body)['message'] ?? 'Logout failed';
+        emit(AuthErrortate(message: error));
       }
     } catch (error) {
       emit(AuthErrortate(message: "An error occurred: $error"));

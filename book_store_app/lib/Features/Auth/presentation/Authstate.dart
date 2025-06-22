@@ -1,8 +1,12 @@
 
-
+import 'package:equatable/equatable.dart';
 import 'package:book_store_app/Features/Auth/domain/Userentites.dart';
-
-abstract class Authstate {}
+abstract class Authstate extends Equatable {
+  const Authstate();
+  
+  @override
+  List<Object> get props => [];
+}
 
 class AuthInitialState extends Authstate {}
 
@@ -10,16 +14,24 @@ class AuthloadingState extends Authstate {}
 
 class AuthSuccessState extends Authstate {
   final String message;
-  AuthSuccessState({required this.message});
+  const AuthSuccessState({required this.message});
+  
+  @override
+  List<Object> get props => [message];
 }
 
 class AuthErrortate extends Authstate {
   final String message;
-  AuthErrortate({required this.message});
+  const AuthErrortate({required this.message});
+  
+  @override
+  List<Object> get props => [message];
 }
 
 class AuthAuthenticatedState extends Authstate {
   final Userentites user;
-
-  AuthAuthenticatedState({required this.user});
+  const AuthAuthenticatedState({required this.user});
+  
+  @override
+  List<Object> get props => [user];
 }

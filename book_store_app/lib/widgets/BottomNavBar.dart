@@ -33,7 +33,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
       body: _pages[_selectedIndex],
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-          // Example: Navigate to create category or perform any action
+
           Navigator.push(
             context,
             MaterialPageRoute(builder: (context) => Createcategorypage()),
