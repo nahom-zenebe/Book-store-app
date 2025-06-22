@@ -1,3 +1,4 @@
+import 'package:book_store_app/pages/Profilepage.dart';
 import 'package:flutter/material.dart';
 import 'package:book_store_app/Features/Category/presentation/DisplayCategorypage.dart';
 import 'package:book_store_app/pages/Cartpage.dart';
@@ -19,6 +20,7 @@ class _BottomnavbarState extends State<Bottomnavbar> {
     Displaycategorypage(),
     Cartpage(),
     Createcategorypage(),
+    ProfilePage()
   ];
 
   void _onItemTapped(int index) {
