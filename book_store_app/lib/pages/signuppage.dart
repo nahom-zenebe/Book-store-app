@@ -1,6 +1,9 @@
+import 'package:book_store_app/Features/Auth/presentation/Authbloc.dart';
 import 'package:book_store_app/Features/Auth/presentation/Loginpage.dart';
+import 'package:book_store_app/Features/Auth/presentation/authevent.dart';
 import 'package:book_store_app/widgets/BottomNavBar.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 class Signuppage extends StatefulWidget {
   const Signuppage({super.key});
@@ -19,7 +22,12 @@ class _SignuppageState extends State<Signuppage> {
 
   void _handleSignup() {
     if (_formKey.currentState!.validate()) {
-      // Handle signup logic here
+      context.read<AuthBloc>().add(AuthsignupEvent(
+          name: _nameController.text,
+          email: _emailController.text,
+          password: _passwordController.text,
+          role: _selectedRole));
+
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Bottomnavbar()),

@@ -1,3 +1,4 @@
+import 'package:book_store_app/pages/CreateBook.dart';
 import 'package:book_store_app/pages/Profilepage.dart';
 import 'package:flutter/material.dart';
 import 'package:book_store_app/Features/Category/presentation/DisplayCategorypage.dart';
@@ -17,9 +18,8 @@ class _BottomnavbarState extends State<Bottomnavbar> {
 
   final List<Widget> _pages = [
     Homepage(),
-    Displaycategorypage(),
     Cartpage(),
-    Createcategorypage(),
+     CreateBook(),
     ProfilePage()
   ];
 
